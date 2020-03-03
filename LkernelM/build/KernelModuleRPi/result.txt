@@ -1,0 +1,10 @@
+pi@raspberrypi:~ $ ls -al /dev/ce3003
+crw-r--r-- 1 root root 105, 22 Nov  2 13:16 /dev/ce3003
+pi@raspberrypi:~ $ cat /dev/ce3003
+CE3003pi@raspberrypi:~ $ sudo su
+root@raspberrypi:/home/pi# ./test_mod
+opening file /dev/ce3003
+open /dev/ce3003 successfully
+Message sent to LKM: "Hello LKM"
+Message received from LKM = "CE3003
+root@raspberrypi:/home/pi#

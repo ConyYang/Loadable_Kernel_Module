@@ -1,0 +1,83 @@
+root@raspberrypi:/home/pi/ce3003# make
+make -C /usr/src/linux-headers-`uname -r` M=`pwd` modules
+make[1]: Entering directory '/usr/src/linux-headers-4.1.18-v7+'
+  CC [M]  /home/pi/ce3003/mod_hello.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      /home/pi/ce3003/mod_hello.mod.o
+  LD [M]  /home/pi/ce3003/mod_hello.ko
+make[1]: Leaving directory '/usr/src/linux-headers-4.1.18-v7+'
+root@raspberrypi:/home/pi/ce3003# insmod ./mod_hello.ko
+root@raspberrypi:/home/pi/ce3003# lsmod
+Module                  Size  Used by
+mod_hello                681  0
+bnep                   10336  2
+hci_uart               13533  1
+btbcm                   4196  1 hci_uart
+bluetooth             317981  22 bnep,btbcm,hci_uart
+brcmfmac              177546  0
+brcmutil                5501  1 brcmfmac
+cfg80211              389253  1 brcmfmac
+rfkill                 16036  3 cfg80211,bluetooth
+i2c_bcm2708             4920  0
+snd_bcm2835            19802  3
+bcm2835_gpiomem         2860  0
+snd_pcm                73442  1 snd_bcm2835
+bcm2835_rng             1763  0
+snd_timer              18792  1 snd_pcm
+snd                    50779  9 snd_bcm2835,snd_timer,snd_pcm
+uio_pdrv_genirq         2944  0
+uio                     7753  1 uio_pdrv_genirq
+i2c_dev                 5671  0
+fuse                   80694  3
+ipv6                  338574  32
+root@raspberrypi:/home/pi/ce3003# lsmod | egrep "mod"
+mod_hello                681  0
+root@raspberrypi:/home/pi/ce3003# dmesg | tail
+[   12.093431] Bluetooth: HCI UART protocol H4 registered
+[   12.093440] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[   12.093449] Bluetooth: HCI UART protocol BCM registered
+[   12.336057] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[   12.336075] Bluetooth: BNEP filters: protocol multicast
+[   12.336098] Bluetooth: BNEP socket layer initialized
+[   17.260818] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   17.262919] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xCDE1
+[   29.273987] EXT4-fs (mmcblk0p5): mounted filesystem with ordered data mode. Opts: (null)
+[ 3028.622092] Hello from kernel world  V1
+root@raspberrypi:/home/pi/ce3003# modinfo mod_hello.ko
+filename:       /home/pi/ce3003/mod_hello.ko
+version:        V1
+description:    Simple HW module
+author:         CE3003
+license:        GPL
+srcversion:     BE91DF7DE6D9EE49B3EEC0E
+depends:
+vermagic:       4.1.18-v7 SMP mod_unload modversions ARMv7
+root@raspberrypi:/home/pi/ce3003# rmmod mod_hello
+root@raspberrypi:/home/pi/ce3003# dmesg | tail
+[   12.093440] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[   12.093449] Bluetooth: HCI UART protocol BCM registered
+[   12.336057] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[   12.336075] Bluetooth: BNEP filters: protocol multicast
+[   12.336098] Bluetooth: BNEP socket layer initialized
+[   17.260818] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   17.262919] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xCDE1
+[   29.273987] EXT4-fs (mmcblk0p5): mounted filesystem with ordered data mode. Opts: (null)
+[ 3028.622092] Hello from kernel world  V1
+[ 3096.271028] Goodbye from kernel world - V1
+root@raspberrypi:/home/pi/ce3003# make
+make -C /usr/src/linux-headers-`uname -r` M=`pwd` modules
+make[1]: Entering directory '/usr/src/linux-headers-4.1.18-v7+'
+  Building modules, stage 2.
+  MODPOST 1 modules
+make[1]: Leaving directory '/usr/src/linux-headers-4.1.18-v7+'
+root@raspberrypi:/home/pi/ce3003# obj-m := modhello.o
+bash: obj-m: command not found
+root@raspberrypi:/home/pi/ce3003#
+root@raspberrypi:/home/pi/ce3003# all:
+bash: all:: command not found
+root@raspberrypi:/home/pi/ce3003# make -C /usr/src/linux-headers-`uname -r` M=`pwd` modules
+make: Entering directory '/usr/src/linux-headers-4.1.18-v7+'
+^Z
+[1]+  Stopped                 make -C /usr/src/linux-headers-`uname -r` M=`pwd` modules
+root@raspberrypi:/home/pi/ce3003#
