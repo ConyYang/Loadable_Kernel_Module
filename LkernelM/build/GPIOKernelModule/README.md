@@ -1,7 +1,0 @@
-static inline bool gpio_is_valid(int number)
-staticinlineint gpio_request(unsignedgpio,constchar*label) staticinlineint gpio_export(unsignedgpio,booldirection_may_change) static inline int gpio_direction_output(unsigned gpio, int value) static inline int gpio_set_value(unsigned gpio)
-static inline int gpio_direction_input(unsigned gpio)
-static inline int gpio_get_value(unsigned gpio)
-staticinlineint gpio_set_debounce(unsignedgpio,unsigneddebounce) static inline void gpio_unexport(unsigned gpio)
-static inline void gpio_free(unsigned gpio)
-static inline int gpio_to_irq(unsigned gpio)
