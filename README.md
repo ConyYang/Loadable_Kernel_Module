@@ -3,3 +3,9 @@ The following practical exercises are designed to enable students to practice te
 Module (LKM) programming. First part of the exercises can be done on an Ubuntu based PC in order to get familiarized 
 with the LKM development process. Once the code is shown to be operating properly, it is then transferred to the RPi3 
 for further development.
+
+1. double shift
+2. start ssh
+3. gpu-02
+4. tmux attach
+
